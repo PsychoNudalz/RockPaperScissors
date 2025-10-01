@@ -1,7 +1,7 @@
+import logging
 import random
 from enum import Enum
 from datetime import datetime
-
 
 
 # from typing import List
@@ -16,35 +16,30 @@ class GameState(Enum):
 
 # Types of card
 class Card(Enum):
-    ROCK = 1,
-    PAPER = 2,
-    SCISSOR = 3,
+    ROCK = 1
+    PAPER = 2
+    SCISSOR = 3
     DYNAMITE = -1
 
 
 class Player:
-    cards: list[Card] = []
+    def __init__(self):
+        self.cards: list[Card] = []
 
-    #
-    # def __init__(self):
-    #     self.cards: list[Card] = []
-
-    # getting list of cards back, will be used to display on the player
     def GetCards(self) -> list[Card]:
         return self.cards
 
-    # get the number of cards back
     def GetCardsNum(self) -> int:
         return len(self.cards)
 
 
-class Session:
-    ID: int
-    player_Human: Player = Player
-    player_AI: Player = Player
 
+class Session:
     def __init__(self, ID: int):
         self.ID = ID
+        self.player_Human = Player()
+        self.player_AI = Player()
+
 
 
 class GameEngine:
@@ -69,23 +64,26 @@ class GameEngine:
     def DealCards(self) -> int:
         if not self.currentSession:
             return -1  # TODO: throw an error
-
-        selectedCards: list[Card] = self.SelectCards(self.numberOfCards)
+        selectedCards: list[Card] = self.GenerateCards(self.numberOfCards)
         self.currentSession.player_Human.cards = selectedCards
         self.currentSession.player_AI.cards = selectedCards
 
-    def SelectCards(self, numberOfCards: int) -> list[Card]:
+        logging.info(f"Human Cards:{self.currentSession.player_Human.cards}")
+
+        return 0
+
+    def GenerateCards(self, numberOfCards: int) -> list[Card]:
         cards: list[Card] = []
         for x in range(0, numberOfCards):
             cards.append(random.choice(list(Card)))
         return cards
 
-    #return 1 for card 1 win, 2 for card 2, 0 for draw
-    def CompareLogic(self,Card1:Card,Card2:Card) -> int:
-        #draw
+    # return 1 for card 1 win, 2 for card 2, 0 for draw
+    def CompareLogic(self, Card1: Card, Card2: Card) -> int:
+        # draw
         if Card1 == Card2:
             return 0
-        #Dyno
+        # Dyno
         if Card1 == Card.DYNAMITE:
             return 1
         if Card2 == Card.DYNAMITE:
@@ -106,8 +104,29 @@ class GameEngine:
         else:
             return 2  # Card2 wins
 
-# GE: GameEngine = GameEngine()
-# GE.StartGame()
+    def PlayCard(self, card: Card) -> int:
+        PlayerCard = card
+        AICard = random.choice(list(Card))
+        result = self.CompareLogic(PlayerCard, AICard)
+        return result
+
+    def GetHand_Player(self) -> list[Card]:
+        if not self.currentSession:
+            logging.error("Game session not running")
+            return []
+        human:Player = self.currentSession.player_Human
+        if not human:
+            logging.error("Human is none")
+            return []
+        cards = human.GetCards()
+        return cards
+
+
+GE: GameEngine = GameEngine()
+GE.StartGame()
+# print(GE.currentSession.player_Human.cards)
+print(GE.GetHand_Player())
+
 # x = GE.currentSession.player_Human.cards[3]
 # y = GE.currentSession.player_AI.cards[3]
 # print(x)

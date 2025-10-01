@@ -15,50 +15,81 @@ nest_asyncio.apply()
 # -----------------------
 app = FastAPI()
 
-
-
-
 # -----------------------
 # Server controls
 # -----------------------
 server = None
 thread = None
 
-def start_server():
+
+def start_server(ip: str = "127.0.0.1", port: int = 8000):
     global server, thread
-    config = uvicorn.Config(app=app, host="127.0.0.1", port=8000, log_level="info")
+    config = uvicorn.Config(app=app, host=ip, port=port, log_level="info")
     server = uvicorn.Server(config)
     thread = threading.Thread(target=server.run, daemon=True)
     thread.start()
-    print("Server running at http://127.0.0.1:8000")
+    logging.info(f"Server running at http://{ip}:{port}/")
+
 
 def stop_server():
     global server
     if server:
         server.should_exit = True
-        print("Stopping server...")
+        logging.info("Stopping server...")
 
 
 @app.get("/ping")
 def ping():
     return {"status": "alive"}
 
+
 @app.get("/start")
 def start_game():
     GE.StartGame()
+    # display_hand()
     return {"message": "Rock, Paper, Scissors, Dynamite has begun!"}
 
 
 @app.post("/play")
 def play_game(move: str):
+    global GE
     if move not in choices:
         return {"error": "Invalid move"}
+    if not GE:
+        return {"error": "Game engine not running"}
+
+    card: Card = Card.DYNAMITE
+    if move == "rock":
+        card: Card = Card.ROCK
+    elif move == "paper":
+        card: Card = Card.PAPER
+    elif move == "scissors":
+        card: Card = Card.SCISSOR
+    elif move == "dynamite":
+        card: Card = Card.DYNAMITE
+    else:
+        return {"error": "Invalid move"}
+
     logging.info(f"Player {move} is playing")
+    GE.PlayCard(card)
 
 
+@app.get("/display")
+def display_hand():
+    global GE
+    if not GE:
+        logging.info("Game engine not running")
+        return {"message": "Game engine not running"}
+    PlayerHand = GE.GetHand_Player()
+    HandStr = [str(card.name) for card in PlayerHand]  # Convert Enum -> str
+    logging.info(f"Player hand: {HandStr}")
+    return {"hand": str(HandStr)}
 
-#Starting the App
+@app.get("/test")
+def test():
+    return {"test": "test"}
+
+
+# Starting the App
 choices = ["rock", "paper", "scissors", "dynamite"]
 GE: GameEngine = GameEngine()
-
-
