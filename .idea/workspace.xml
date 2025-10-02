@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50167c59-0170-4fe8-8a38-587b35b82b9b" name="Changes" comment="Notebook can now start and stop a server">
-      <change beforePath="$PROJECT_DIR$/.idea/RockPaperScissors.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RockPaperScissors.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="50167c59-0170-4fe8-8a38-587b35b82b9b" name="Changes" comment="Notebook can now play cards and the engine can decide if they win or not.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameEngine.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_API.py" afterDir="false" />
@@ -120,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759355925877</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Notebook can now play cards and the engine can decide if they win or not.">
+      <option name="closed" value="true" />
+      <created>1759366481151</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1759366481151</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +145,7 @@
     <MESSAGE value="added git ignore" />
     <MESSAGE value="Frame for the code is set up" />
     <MESSAGE value="Notebook can now start and stop a server" />
-    <option name="LAST_COMMIT_MESSAGE" value="Notebook can now start and stop a server" />
+    <MESSAGE value="Notebook can now play cards and the engine can decide if they win or not." />
+    <option name="LAST_COMMIT_MESSAGE" value="Notebook can now play cards and the engine can decide if they win or not." />
   </component>
 </project>

@@ -3,6 +3,7 @@ import logging
 
 import requests as rq
 
+
 # def StartGame():
 
 # def get(url:str,req:str) -> requests.Response:
@@ -14,8 +15,24 @@ import requests as rq
 # def StartGame(url:str) -> requests.Response:
 #     return requests.post(url)
 
-def PlayCard(url:str, move:str):
-    resp = rq.post(url + "play?move="+move)
+def GECHeck(url: str) -> int:
+    """
+    Check if Game Engine is running
+    :param url:
+    :return: 0 - yes, 1 - no
+    """
+    resp = rq.get(url + "GECheck")
+    if resp.json().get("error"):
+        print(resp.json().get("error"))
+        return 1
+    return 0
+
+
+def PlayCard(url: str, move: str) -> int:
+    if GECHeck(url) != 0:
+        return 1
+
+    resp = rq.post(url + "play?move=" + move)
     move = move.lower()
     json = resp.json()
     if json.get("error"):
@@ -29,6 +46,16 @@ def PlayCard(url:str, move:str):
     elif result == 0:
         print("Draw")
 
+    return 0
 
 
+def GetScore(url: str) -> int:
+    if GECHeck(url) != 0:
+        return 1
 
+    resp = rq.get(url + "score")
+    # print(resp.json())
+    print(f"Human: {resp.json().get("human")}")
+    print(f"AI: {resp.json().get("ai")}")
+
+    return 0

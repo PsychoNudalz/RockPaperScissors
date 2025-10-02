@@ -42,6 +42,14 @@ def stop_server():
 def ping():
     return {"status": "alive"}
 
+@app.get("/GECheck")
+def GECheck():
+    global GE
+    if not GE:
+        logging.error("Game Engine not running")
+        return {"error": "Game engine not running"}
+    return {"message": "Game Engine is running"}
+
 
 @app.get("/start")
 def start_game():
@@ -95,7 +103,8 @@ def test():
 
 @app.get("/score")
 def get_score():
-    return
+    human, ai = GE.GetScore()
+    return {"human": human, "ai": ai}
 
 # Starting the App
 choices = ["rock", "paper", "scissors", "dynamite"]

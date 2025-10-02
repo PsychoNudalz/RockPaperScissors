@@ -134,7 +134,8 @@ class GameEngine:
 
         PlayerCard = card
 
-        # TODO: Remove card from player
+        # Remove card from player
+        self.currentSession.player_Human.cards.remove(card)
 
         AICard = random.choice(list(Card))
         result = self.CompareLogic(PlayerCard, AICard)
@@ -147,6 +148,7 @@ class GameEngine:
             self.currentSession.player_AI.AddScore()
         elif result == 0:
             logging.info(f"AICard:{AICard}, result: DRAW")
+        logging.info(f"Remaining cards:{self.currentSession.player_Human.cards}")
         return result
 
     def GetHand_Player(self) -> list[Card]:
@@ -163,6 +165,9 @@ class GameEngine:
             return []
         cards = human.GetCards()
         return cards
+
+    def GetScore(self) -> tuple[int, int]:
+        return self.currentSession.player_Human.score, self.currentSession.player_AI.score
 
 # GE: GameEngine = GameEngine()
 # GE.StartGame()
