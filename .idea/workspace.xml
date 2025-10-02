@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50167c59-0170-4fe8-8a38-587b35b82b9b" name="Changes" comment="Basic version done">
+    <list default="true" id="50167c59-0170-4fe8-8a38-587b35b82b9b" name="Changes" comment="Added documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_API.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RockPaperScissors.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/RockPaperScissors.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +132,15 @@
       <option name="project" value="LOCAL" />
       <updated>1759375557521</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added documentation">
+      <option name="closed" value="true" />
+      <created>1759377625565</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1759377625565</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,6 +161,7 @@
     <MESSAGE value="Notebook can now start and stop a server" />
     <MESSAGE value="Notebook can now play cards and the engine can decide if they win or not." />
     <MESSAGE value="Basic version done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic version done" />
+    <MESSAGE value="Added documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added documentation" />
   </component>
 </project>
