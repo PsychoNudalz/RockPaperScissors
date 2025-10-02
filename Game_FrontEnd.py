@@ -1,10 +1,5 @@
 # import Game_API
-import logging
-
 import requests as rq
-
-
-# def StartGame():
 
 # def get(url:str,req:str) -> requests.Response:
 #     return requests.get(url+req)

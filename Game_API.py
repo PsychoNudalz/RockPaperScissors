@@ -44,6 +44,10 @@ def ping():
 
 @app.get("/GECheck")
 def GECheck():
+    """
+    Check if the game engine is running or not.
+    :return:
+    """
     global GE
     if not GE:
         logging.error("Game Engine not running")
@@ -53,6 +57,10 @@ def GECheck():
 
 @app.get("/start")
 def start_game():
+    """
+    Starts the game
+    :return:
+    """
     GE.StartGame()
     # display_hand()
     return {"message": "Rock, Paper, Scissors, Dynamite has begun!"}
@@ -60,6 +68,11 @@ def start_game():
 
 @app.post("/play")
 def play_card(move: str):
+    """
+    Plays a move depending on the move
+    :param move:
+    :return:
+    """
     global GE
 
     if move not in ["rock", "paper", "scissors", "dynamite"]:
@@ -91,6 +104,10 @@ def play_card(move: str):
 
 @app.get("/display")
 def display_hand():
+    """
+    display current hand
+    :return:
+    """
     global GE
     if not GE:
         logging.info("Game engine not running")
@@ -106,6 +123,10 @@ def test():
 
 @app.get("/score")
 def get_score():
+    """
+    Get the score
+    :return:
+    """
     human, ai = GE.GetScore()
     return {"human": human, "ai": ai}
 
