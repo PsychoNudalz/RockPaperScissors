@@ -59,9 +59,10 @@ def start_game():
 
 
 @app.post("/play")
-def play_game(move: str):
+def play_card(move: str):
     global GE
-    if move not in choices:
+
+    if move not in ["rock", "paper", "scissors", "dynamite"]:
         logging.error(f"Invalid move: {move}")
         return {"error": "Invalid move"}
     if not GE:
@@ -69,7 +70,8 @@ def play_game(move: str):
         return {"error": "Game engine not running"}
     logging.info(f"Player {move} received")
 
-    card: Card = Card.DYNAMITE
+    card: Optional[Card] = None
+
     if move == "rock":
         card: Card = Card.ROCK
     elif move == "paper":
@@ -78,10 +80,11 @@ def play_game(move: str):
         card: Card = Card.SCISSOR
     elif move == "dynamite":
         card: Card = Card.DYNAMITE
-    else:
+
+    if not card:
         return {"error": "Invalid move"}
 
-    logging.info(f"Player {move} is playing")
+    logging.info(f"Player {card} is playing")
     result : int =  GE.PlayCard(card)
     return {"result": result}
 
@@ -107,5 +110,4 @@ def get_score():
     return {"human": human, "ai": ai}
 
 # Starting the App
-choices = ["rock", "paper", "scissors", "dynamite"]
 GE: GameEngine = GameEngine()

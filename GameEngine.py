@@ -2,6 +2,7 @@ import logging
 import random
 from enum import Enum
 from datetime import datetime
+from typing import Optional
 
 
 # from typing import List
@@ -16,10 +17,10 @@ class GameState(Enum):
 
 # Types of card
 class Card(Enum):
-    ROCK = 1
-    PAPER = 2
-    SCISSOR = 3
-    DYNAMITE = -1
+    ROCK = "rock"
+    PAPER = "paper"
+    SCISSOR = "scissor"
+    DYNAMITE = "dynamite"
 
 
 class Player:
@@ -55,6 +56,10 @@ class GameEngine:
     #     self.cu
 
     def StartGame(self):
+        """
+        Starts a new game and sets the new cards and current session
+        :return:
+        """
         # set up players
         self.currentSession = Session(int(datetime.now().timestamp()))
         # TODO: check if ID conflicts with other sessions
@@ -71,8 +76,8 @@ class GameEngine:
         if not self.currentSession:
             return -1  # TODO: throw an error
         selectedCards: list[Card] = self.GenerateCards(self.numberOfCards)
-        self.currentSession.player_Human.cards = selectedCards
-        self.currentSession.player_AI.cards = selectedCards
+        self.currentSession.player_Human.cards = selectedCards.copy()
+        self.currentSession.player_AI.cards = selectedCards.copy()
 
         logging.info(f"Human Cards:{self.currentSession.player_Human.cards}")
 
@@ -125,19 +130,25 @@ class GameEngine:
         """
         Plays card
         :param card:
-        :return: 0- Draw, 1- Human Win, 2- Human Lose, -1- Picked invalid card
+        :return: 0- Draw, 1- Human Win, 2- Human Lose, 3- Picked invalid card, 4- AI's hand is empty
         """
         # Stop if the player doesn't have that card
         if not card in self.currentSession.player_Human.cards:
             logging.info(f"Card {card} not in Human")
-            return -1;
+            return 3
 
         PlayerCard = card
 
         # Remove card from player
         self.currentSession.player_Human.cards.remove(card)
 
-        AICard = random.choice(list(Card))
+        # TODO: AI logic to playing a card
+        AICard = self.AI_PickCard()
+
+        if not AICard:
+            logging.info(f"AI empty hand")
+            return 4
+
         result = self.CompareLogic(PlayerCard, AICard)
 
         if result == 1:
@@ -148,8 +159,23 @@ class GameEngine:
             self.currentSession.player_AI.AddScore()
         elif result == 0:
             logging.info(f"AICard:{AICard}, result: DRAW")
-        logging.info(f"Remaining cards:{self.currentSession.player_Human.cards}")
+        logging.info(f"Remaining cards:{str(self.GetHand_Player())}")
         return result
+
+    def AI_PickCard(self) -> Optional[Card]:
+        """
+        Very basic picking a card from the AI's hand
+        TODO: Connect it to an AI
+        :return: card from AI's hand
+        """
+        AI_Cards = self.currentSession.player_AI.cards
+        if len(AI_Cards)<=0:
+            return None
+
+        card = random.choice(AI_Cards)
+        AI_Cards.remove(card)
+        return card
+
 
     def GetHand_Player(self) -> list[Card]:
         """
@@ -167,6 +193,10 @@ class GameEngine:
         return cards
 
     def GetScore(self) -> tuple[int, int]:
+        """
+        get score
+        :return:
+        """
         return self.currentSession.player_Human.score, self.currentSession.player_AI.score
 
 # GE: GameEngine = GameEngine()
