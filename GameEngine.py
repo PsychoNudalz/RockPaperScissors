@@ -25,6 +25,7 @@ class Card(Enum):
 class Player:
     def __init__(self):
         self.cards: list[Card] = []
+        self.score: int = 0
 
     def GetCards(self) -> list[Card]:
         return self.cards
@@ -32,6 +33,8 @@ class Player:
     def GetCardsNum(self) -> int:
         return len(self.cards)
 
+    def AddScore(self):
+        self.score += 1
 
 
 class Session:
@@ -39,7 +42,6 @@ class Session:
         self.ID = ID
         self.player_Human = Player()
         self.player_AI = Player()
-
 
 
 class GameEngine:
@@ -62,6 +64,10 @@ class GameEngine:
         return
 
     def DealCards(self) -> int:
+        """
+        Assigns cards to Human and AI player
+        :return:
+        """
         if not self.currentSession:
             return -1  # TODO: throw an error
         selectedCards: list[Card] = self.GenerateCards(self.numberOfCards)
@@ -73,6 +79,11 @@ class GameEngine:
         return 0
 
     def GenerateCards(self, numberOfCards: int) -> list[Card]:
+        """
+        Generates a list of random cards.
+        :param numberOfCards:
+        :return :list of random cards
+        """
         cards: list[Card] = []
         for x in range(0, numberOfCards):
             cards.append(random.choice(list(Card)))
@@ -80,6 +91,12 @@ class GameEngine:
 
     # return 1 for card 1 win, 2 for card 2, 0 for draw
     def CompareLogic(self, Card1: Card, Card2: Card) -> int:
+        """
+        Performs the logic of deciding win
+        :param Card1:
+        :param Card2:
+        :return: 1 for card 1 win, 2 for card 2, 0 for draw
+        """
         # draw
         if Card1 == Card2:
             return 0
@@ -105,27 +122,52 @@ class GameEngine:
             return 2  # Card2 wins
 
     def PlayCard(self, card: Card) -> int:
+        """
+        Plays card
+        :param card:
+        :return: 0- Draw, 1- Human Win, 2- Human Lose, -1- Picked invalid card
+        """
+        # Stop if the player doesn't have that card
+        if not card in self.currentSession.player_Human.cards:
+            logging.info(f"Card {card} not in Human")
+            return -1;
+
         PlayerCard = card
+
+        # TODO: Remove card from player
+
         AICard = random.choice(list(Card))
         result = self.CompareLogic(PlayerCard, AICard)
+
+        if result == 1:
+            logging.info(f"AICard:{AICard}, result: WIN")
+            self.currentSession.player_Human.AddScore()
+        elif result == 2:
+            logging.info(f"AICard:{AICard}, result: LOSE")
+            self.currentSession.player_AI.AddScore()
+        elif result == 0:
+            logging.info(f"AICard:{AICard}, result: DRAW")
         return result
 
     def GetHand_Player(self) -> list[Card]:
+        """
+        Display Player's hand
+        :return: List of cards
+        """
         if not self.currentSession:
             logging.error("Game session not running")
             return []
-        human:Player = self.currentSession.player_Human
+        human: Player = self.currentSession.player_Human
         if not human:
             logging.error("Human is none")
             return []
         cards = human.GetCards()
         return cards
 
-
-GE: GameEngine = GameEngine()
-GE.StartGame()
-# print(GE.currentSession.player_Human.cards)
-print(GE.GetHand_Player())
+# GE: GameEngine = GameEngine()
+# GE.StartGame()
+# # print(GE.currentSession.player_Human.cards)
+# print(GE.GetHand_Player())
 
 # x = GE.currentSession.player_Human.cards[3]
 # y = GE.currentSession.player_AI.cards[3]

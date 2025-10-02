@@ -54,9 +54,12 @@ def start_game():
 def play_game(move: str):
     global GE
     if move not in choices:
+        logging.error(f"Invalid move: {move}")
         return {"error": "Invalid move"}
     if not GE:
+        logging.error("Game Engine not running")
         return {"error": "Game engine not running"}
+    logging.info(f"Player {move} received")
 
     card: Card = Card.DYNAMITE
     if move == "rock":
@@ -71,7 +74,8 @@ def play_game(move: str):
         return {"error": "Invalid move"}
 
     logging.info(f"Player {move} is playing")
-    GE.PlayCard(card)
+    result : int =  GE.PlayCard(card)
+    return {"result": result}
 
 
 @app.get("/display")
@@ -89,6 +93,9 @@ def display_hand():
 def test():
     return {"test": "test"}
 
+@app.get("/score")
+def get_score():
+    return
 
 # Starting the App
 choices = ["rock", "paper", "scissors", "dynamite"]

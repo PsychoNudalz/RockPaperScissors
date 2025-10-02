@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50167c59-0170-4fe8-8a38-587b35b82b9b" name="Changes" comment="Notebook can now start and stop a server">
+      <change beforePath="$PROJECT_DIR$/.idea/RockPaperScissors.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RockPaperScissors.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameEngine.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameEngine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game_API.py" beforeDir="false" afterPath="$PROJECT_DIR$/Game_API.py" afterDir="false" />
@@ -39,6 +41,9 @@
     &quot;accountId&quot;: &quot;6b6da836-f8f0-406a-937d-a2cb5c280956&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -56,6 +61,10 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "D:/Projects/Python/RockPaperScissors",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "jupyter.general.settings"
   }
 }]]></component>
@@ -131,16 +140,5 @@
     <MESSAGE value="Frame for the code is set up" />
     <MESSAGE value="Notebook can now start and stop a server" />
     <option name="LAST_COMMIT_MESSAGE" value="Notebook can now start and stop a server" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/GameEngine.py</url>
-          <line>114</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
